@@ -1,9 +1,11 @@
-import Image from 'next/image'
-import appMockup from '../assets/app-mockup.png'
-import logoImg from '../assets/logo.svg'
-import usersAvatarExampleImg from '../assets/users-avatar-example.png'
-import iconCheck from '../assets/check.svg'
-import { api } from '../lib/axios'
+import Image from 'next/image';
+import { FormEvent, useState } from 'react';
+
+import appMockup from '../assets/app-mockup.png';
+import iconCheck from '../assets/check.svg';
+import logoImg from '../assets/logo.svg';
+import usersAvatarExampleImg from '../assets/users-avatar-example.png';
+import { api } from '../lib/axios';
 
 interface HomeProps {
   poolCount: number
@@ -12,6 +14,32 @@ interface HomeProps {
 }
 
 export default function Home(props: HomeProps) {
+  const [poolTitle, setPoolTitle] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  async function createPool(event: FormEvent) {
+    event.preventDefault()
+
+    try {
+      const res = await api.post('/pools', {
+        title: poolTitle,
+      })
+  
+      const { code } = res.data
+  
+      await navigator.clipboard.writeText(code)      
+  
+      setPoolTitle('')
+  
+      setSuccessMessage('Pool successfully created! Code copied into clipboard.')
+    } catch (err) {
+      setErrorMessage(`Failed to create a new pool. Detailed error message: ${err}`)
+    }
+
+  }
+
+
   return (
     <div className='max-w-[1124px] h-screen mx-auto grid grid-cols-2 gap-28 items-center'>
       <main>
@@ -32,12 +60,14 @@ export default function Home(props: HomeProps) {
           </strong>
         </div>
 
-        <form className='mt-10 flex gap-2'>
+        <form onSubmit={createPool} className='mt-10 flex gap-2'>
           <input 
             type="text" 
             required 
             placeholder="What's your pool name?"
-            className='flex-1 px-6 py-4 rounded bg-gray-800 border border-gray-600 text-sm' 
+            className='flex-1 px-6 py-4 rounded bg-gray-800 border border-gray-600 text-sm text-gray-100' 
+            onChange={(e) => setPoolTitle(e.target.value)}
+            value={poolTitle}
           />
           <button 
             type="submit"
@@ -84,7 +114,7 @@ export default function Home(props: HomeProps) {
   )
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const [poolCountResponse, guessCountResponse, userCountResponse] = await Promise.all([
     api.get('/pools/count'),
     api.get('/guesses/count'),
@@ -96,6 +126,7 @@ export const getServerSideProps = async () => {
       poolCount: poolCountResponse.data.count,
       guessCount: guessCountResponse.data.count,
       userCount: userCountResponse.data.count,
-    }
+    },
+    revalidate: 3600
   }
 }
