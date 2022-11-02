@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Image from 'next/image';
 import { FormEvent, useState } from 'react';
 
@@ -33,8 +34,15 @@ export default function Home(props: HomeProps) {
       setPoolTitle('')
   
       setSuccessMessage('Pool successfully created! Code copied into clipboard.')
+
+      setTimeout(() => {
+        setSuccessMessage('')
+      }, 10000)
     } catch (err) {
       setErrorMessage(`Failed to create a new pool. Detailed error message: ${err}`)
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 10000)
     }
 
   }
@@ -60,7 +68,7 @@ export default function Home(props: HomeProps) {
           </strong>
         </div>
 
-        <form onSubmit={createPool} className='mt-10 flex gap-2'>
+        <form onSubmit={createPool} className='mt-10 mb-4 flex gap-2'>
           <input 
             type="text" 
             required 
@@ -74,6 +82,18 @@ export default function Home(props: HomeProps) {
             className='bg-yellow-500 px-6 py-4 rounded uppercase text-gray-900 font-bold text-sm hover:bg-yellow-700 active:bg-yellow-700 transition-colors'
           >Create pool</button>
         </form>
+
+        {
+          successMessage.length > 0 || errorMessage.length > 0 ?
+          (
+            <span className={classNames('my-4 text-gray-100 rounded p-2 bg-opacity-70 text-sm', {
+              'bg-ignite-500': successMessage.length > 0,
+              'bg-red-500': errorMessage.length > 0
+            })}>
+              {successMessage.length > 0 ? successMessage : errorMessage.length > 0 ? errorMessage : ''}
+            </span>
+          ) : ''
+        }
 
         <p className='mt-4 text-sm text-gray-300 leading-relaxed'>
           After creating your pool, you will receive an unique code to share 🚀
