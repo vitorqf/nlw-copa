@@ -21,7 +21,7 @@ export function SignIn() {
             />
 
             <Text color="gray.200" textAlign="center" mt={4}>
-                We won't use any information beside {'\n'}
+                We won't use any information than {'\n'}
                 your e-mail for account creating.
             </Text>
         </Center>
