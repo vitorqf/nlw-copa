@@ -94,7 +94,7 @@ export async function pollRoutes(fastify: FastifyInstance) {
         })
       }
 
-      // Since Web version doesn't have an authentication system, if there is a pool web created, which won't have an owner, then the first user that joins it, become the owner
+      // Since Web version doesn't have an authentication system, if there is a poll web created, which won't have an owner, then the first user that joins it, become the owner
       if (!poll.ownerId) {
         await prisma.poll.update({
           where: {
@@ -168,6 +168,7 @@ export async function pollRoutes(fastify: FastifyInstance) {
 
       return { polls }
     })
+
 
     fastify.get('/polls/:id', {
       onRequest: [authenticate]
