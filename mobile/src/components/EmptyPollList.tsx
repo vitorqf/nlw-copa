@@ -1,6 +1,9 @@
+import { useNavigation } from '@react-navigation/native';
 import { Pressable, Row, Text } from 'native-base';
 
 export function EmptyPollList() {
+  const { navigate } = useNavigation()
+
   return (
     <Row
       flexWrap='wrap'
@@ -11,10 +14,10 @@ export function EmptyPollList() {
         fontSize='sm'
         textAlign='center'
       >
-        You aren't participating in {'\n'} any poll yet, try
+        You aren't participating in any poll yet, try
       </Text>
 
-      <Pressable>
+      <Pressable onPress={() => navigate('find')}>
         <Text
           textDecorationLine='underline'
           color='yellow.500'
@@ -33,7 +36,7 @@ export function EmptyPollList() {
         or
       </Text>
 
-      <Pressable>
+      <Pressable onPress={() => navigate('new')}>
         <Text
           textDecorationLine='underline'
           color='yellow.500'
@@ -41,14 +44,6 @@ export function EmptyPollList() {
           create a new one
         </Text>
       </Pressable>
-
-      <Text
-        color='white'
-        fontSize='sm'
-        textAlign='center'
-      >
-        ?
-      </Text>
     </Row>
   );
 }
