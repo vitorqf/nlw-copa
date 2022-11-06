@@ -27,15 +27,15 @@ export function Find() {
           mb={8}
           textAlign='center'
         >
-          Search a pool by its unique code
+          Search a poll by its unique code
         </Heading>
 
         <Input
           mb={2}
-          placeholder="What's the pool code?"
+          placeholder="What's the poll code?"
         />
 
-        <Button title='Search pool' />
+        <Button title='Search poll' />
       </VStack>
     </VStack>
   );

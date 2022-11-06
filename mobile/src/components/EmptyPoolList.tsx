@@ -1,6 +1,6 @@
-import { Row, Text, Pressable } from 'native-base';
+import { Pressable, Row, Text } from 'native-base';
 
-export function EmptyPoolList() {
+export function EmptyPollList() {
   return (
     <Row
       flexWrap='wrap'
@@ -11,7 +11,7 @@ export function EmptyPoolList() {
         fontSize='sm'
         textAlign='center'
       >
-        You aren't participating in {'\n'} any pool yet, try
+        You aren't participating in {'\n'} any poll yet, try
       </Text>
 
       <Pressable>

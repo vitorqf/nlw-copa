@@ -1,10 +1,10 @@
-import { Row, Text, Pressable } from 'native-base';
+import { Pressable, Row, Text } from 'native-base';
 
 interface Props {
   code: string;
 }
 
-export function EmptyMyPoolList({ code }: Props) {
+export function EmptyMyPollList({ code }: Props) {
   return (
     <Row
       flexWrap='wrap'
@@ -15,7 +15,7 @@ export function EmptyMyPoolList({ code }: Props) {
         color='gray.200'
         fontSize='sm'
       >
-        This pool doesn't have any participant yet, what if you
+        This poll doesn't have any participant yet, what if you
       </Text>
 
       <Pressable onPress={() => {}}>

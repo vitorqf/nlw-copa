@@ -4,13 +4,13 @@ import { Icon, VStack } from 'native-base';
 import { Button } from '../components/Button';
 import { Header } from '../components/Header';
 
-export function Pools() {
+export function Polls() {
   return (
     <VStack
       flex={1}
       bgColor='gray.900'
     >
-      <Header title='My pools' />
+      <Header title='My polls' />
 
       <VStack
         mt={6}
@@ -21,7 +21,7 @@ export function Pools() {
         mb={4}
       >
         <Button
-          title='Search a pool by its code'
+          title='Search a poll by its code'
           leftIcon={
             <Icon
               as={Octicons}

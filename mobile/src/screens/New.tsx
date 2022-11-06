@@ -11,7 +11,7 @@ export function New() {
       flex={1}
       bgColor='gray.900'
     >
-      <Header title='Create new pool' />
+      <Header title='Create new poll' />
 
       <VStack
         mt={8}
@@ -27,15 +27,15 @@ export function New() {
           my={8}
           textAlign='center'
         >
-          Create your own pool and {'\n'} share with friends!
+          Create your own poll and {'\n'} share with friends!
         </Heading>
 
         <Input
           mb={2}
-          placeholder="What's your pool name?"
+          placeholder="What's your poll name?"
         />
 
-        <Button title='Create my pool' />
+        <Button title='Create my poll' />
 
         <Text
           color='gray.200'
@@ -44,7 +44,7 @@ export function New() {
           px={10}
           mt={4}
         >
-          After creating your pool, you'll receive an unique code that you might
+          After creating your poll, you'll receive an unique code that you might
           share to invite other people.
         </Text>
       </VStack>
