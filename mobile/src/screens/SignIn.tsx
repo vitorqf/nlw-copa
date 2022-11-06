@@ -1,12 +1,12 @@
 import { Fontisto } from '@expo/vector-icons';
 import { Center, Icon, Text } from 'native-base';
-import { useAuth } from '../hooks/useAuth';
 
 import Logo from '../assets/logo.svg';
 import { Button } from '../components/Button';
+import { useAuth } from '../hooks/useAuth';
 
 export function SignIn() {
-  const { signIn, user } = useAuth();
+  const { signIn, isUserLoading } = useAuth();
 
   return (
     <Center
@@ -32,6 +32,10 @@ export function SignIn() {
         }
         mt={12}
         onPress={signIn}
+        isLoading={isUserLoading}
+        _loading={{
+          _spinner: {color: 'white'}
+        }}
       />
 
       <Text

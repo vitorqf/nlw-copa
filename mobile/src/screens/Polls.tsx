@@ -1,10 +1,13 @@
 import { Octicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { Icon, VStack } from 'native-base';
 
 import { Button } from '../components/Button';
 import { Header } from '../components/Header';
 
 export function Polls() {
+  const { navigate } = useNavigation()
+
   return (
     <VStack
       flex={1}
@@ -30,6 +33,7 @@ export function Polls() {
               size='md'
             />
           }
+          onPress={() => navigate('find')}
         />
       </VStack>
     </VStack>

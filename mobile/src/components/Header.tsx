@@ -1,4 +1,5 @@
-import { Text, HStack, Box } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
+import { Box, HStack, Text } from 'native-base';
 import { CaretLeft, Export } from 'phosphor-react-native';
 
 import { ButtonIcon } from './ButtonIcon';
@@ -21,6 +22,8 @@ export function Header({
     />
   );
 
+  const {navigate} = useNavigation()
+
   return (
     <HStack
       w='full'
@@ -35,7 +38,7 @@ export function Header({
         alignItems='center'
         justifyContent='space-between'
       >
-        {showBackButton ? <ButtonIcon icon={CaretLeft} /> : <EmptyBoxSpace />}
+        {showBackButton ? <ButtonIcon icon={CaretLeft} onPress={() => navigate('polls')} /> : <EmptyBoxSpace />}
 
         <Text
           color='white'
