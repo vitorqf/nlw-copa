@@ -1,7 +1,9 @@
-import { Button, HStack, Text, useTheme, VStack } from 'native-base';
-import { X, Check } from 'phosphor-react-native';
 import { getName } from 'country-list';
+import dayjs from 'dayjs';
+import { Button, HStack, Text, useTheme, VStack } from 'native-base';
+import { Check, X } from 'phosphor-react-native';
 
+import { Loading } from './Loading';
 import { Team } from './Team';
 
 interface GuessProps {
@@ -15,6 +17,7 @@ interface GuessProps {
 
 export interface GameProps {
   id: string;
+  date: string;
   firstTeamCountryCode: string;
   secondTeamCountryCode: string;
   guess: null | GuessProps;
@@ -22,6 +25,7 @@ export interface GameProps {
 
 interface Props {
   data: GameProps;
+  isLoading: boolean;
   onGuessConfirm: () => void;
   setFirstTeamPoints: (value: string) => void;
   setSecondTeamPoints: (value: string) => void;
@@ -32,8 +36,11 @@ export function Game({
   setFirstTeamPoints,
   setSecondTeamPoints,
   onGuessConfirm,
+  isLoading
 }: Props) {
   const { colors, sizes } = useTheme();
+  
+  const when = dayjs(data.date).format("MMMM, DD [at] HH:00[h]")
 
   return (
     <VStack
@@ -59,7 +66,7 @@ export function Game({
         color='gray.200'
         fontSize='xs'
       >
-        2022 November 22th at 04:00pm
+        {when}
       </Text>
 
       <HStack
@@ -86,31 +93,87 @@ export function Game({
         />
       </HStack>
 
-      {!data.guess && (
-        <Button
-          size='xs'
-          w='full'
-          bgColor='green.500'
-          mt={4}
-          onPress={onGuessConfirm}
-        >
-          <HStack alignItems='center'>
-            <Text
-              color='white'
-              fontSize='xs'
-              fontFamily='heading'
-              mr={3}
-            >
-              CONFIRM GUESS
-            </Text>
+      {!data.guess ? new Date(data.date) < new Date() ?
+        (
+          <Button
+            size='xs'
+            w='full'
+            bgColor='gray.500'
+            mt={4}
+            onPress={onGuessConfirm}
+            isDisabled={true}
+          >
+            <HStack alignItems='center'>
+              {
+                isLoading ?
+                <Loading /> :
+                (
+                <Text
+                  color='white'
+                  fontSize='xs'
+                  fontFamily='heading'
+                  mr={3}
+                >
+                  ALREADY HAPPENED
+                </Text>
+                )
+              }
+            </HStack>
+          </Button>
+        ) : (
+          <Button
+            size='xs'
+            w='full'
+            bgColor='green.500'
+            mt={4}
+            onPress={onGuessConfirm}
+          >
+            <HStack alignItems='center'>
+              <Text
+                color='white'
+                fontSize='xs'
+                fontFamily='heading'
+                mr={3}
+              >
+                CONFIRM GUESS
+              </Text>
 
-            <Check
-              color={colors.white}
-              size={sizes[4]}
-            />
-          </HStack>
-        </Button>
-      )}
+              <Check
+                color={colors.white}
+                size={sizes[4]}
+              />
+            </HStack>
+          </Button>
+        )
+
+        :
+
+        (
+          <Button
+            size='xs'
+            w='full'
+            bgColor='gray.500'
+            mt={4}
+            onPress={onGuessConfirm}
+            isDisabled={true}
+          >
+
+            <HStack alignItems='center'>
+              <Text
+                color='white'
+                fontSize='xs'
+                fontFamily='heading'
+                mr={3}
+              >
+                YOU ALREADY GUESSED
+              </Text>
+            </HStack>
+          </Button>
+        )
+
+      }
+      
+
     </VStack>
   );
 }

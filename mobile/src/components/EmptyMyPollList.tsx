@@ -1,24 +1,33 @@
 import { Pressable, Row, Text } from 'native-base';
+import { Share } from 'react-native';
 
 interface Props {
   code: string;
 }
 
 export function EmptyMyPollList({ code }: Props) {
+
+  async function handleCodeShare() {
+    await Share.share({
+        message: code
+    })
+  }
+  
   return (
     <Row
       flexWrap='wrap'
       justifyContent='center'
+      alignItems='center'
       p={4}
     >
       <Text
         color='gray.200'
         fontSize='sm'
       >
-        This poll doesn't have any participant yet, what if you
+        This poll doesn't have any participant yet,
       </Text>
 
-      <Pressable onPress={() => {}}>
+      <Pressable onPress={handleCodeShare}>
         <Text
           textDecorationLine='underline'
           color='yellow.500'
@@ -33,7 +42,7 @@ export function EmptyMyPollList({ code }: Props) {
         fontSize='sm'
         mx={1}
       >
-        with some friend?
+        with some friend!
       </Text>
 
       <Text

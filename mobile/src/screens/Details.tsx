@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Share } from 'react-native';
 
 import { EmptyMyPollList } from '../components/EmptyMyPollList';
+import { Guesses } from '../components/Guesses';
 import { Header } from '../components/Header';
 import { Loading } from '../components/Loading';
 import { Option } from '../components/Option';
@@ -84,7 +85,7 @@ export function Details() {
                             bgColor="gray.800"
                             p={1}
                             rounded="sm"
-                            mb={5}                   
+                            mb={8}                   
                         >
                             <Option
                                 title="Your guesses"
@@ -98,6 +99,8 @@ export function Details() {
                                 onPress={() => setOptionSelected('Group Ranking')}
                             />
                         </HStack>
+
+                        <Guesses pollId={pollDetails.id} code={pollDetails.code}/>
 
                     </VStack> 
                 ) :
