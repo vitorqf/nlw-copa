@@ -27,7 +27,7 @@ This project has been developed with:
 
 ## 💻 Project
 
-A pools application that let user create new pools on web version and search for existing pools in mobile version.
+A polls application that let user create new polls on web version and search for existing polls in mobile version.
 
 ## 🚦 Run
 
