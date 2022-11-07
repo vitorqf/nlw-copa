@@ -107,7 +107,7 @@ export function Guesses({ pollId, code }: Props) {
           isLoading={isLoading}
         />
       )}
-      _contentContainerStyle={{pb: 10}}
+      _contentContainerStyle={{pb: 32}}
       ListEmptyComponent={() => <EmptyMyPollList code={code}/>}
     />
   )

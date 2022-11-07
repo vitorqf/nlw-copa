@@ -40,7 +40,7 @@ export function Game({
 }: Props) {
   const { colors, sizes } = useTheme();
   
-  const when = dayjs(data.date).format("MMMM, DD [at] HH:00[h]")
+  const when = dayjs(data.date).format("YYYY [-] MMMM, DD [at] HH:00[h]")
 
   return (
     <VStack
@@ -79,6 +79,7 @@ export function Game({
           code={data.firstTeamCountryCode}
           position='right'
           onChangeText={setFirstTeamPoints}
+          active={new Date(data.date) < new Date() || !(!data.guess)}
         />
 
         <X
@@ -90,6 +91,7 @@ export function Game({
           code={data.secondTeamCountryCode}
           position='left'
           onChangeText={setSecondTeamPoints}
+          active={new Date(data.date) < new Date() || !(!data.guess)}
         />
       </HStack>
 

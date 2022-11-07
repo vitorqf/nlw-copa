@@ -5,11 +5,12 @@ import { Input } from './Input';
 
 interface Props {
   code: string;
+  active: boolean;
   position: 'left' | 'right';
   onChangeText: (value: string) => void;
 }
 
-export function Team({ code, position, onChangeText }: Props) {
+export function Team({ code, active, position, onChangeText }: Props) {
   return (
     <HStack alignItems='center'>
       {position === 'left' && (
@@ -21,6 +22,7 @@ export function Team({ code, position, onChangeText }: Props) {
       )}
 
       <Input
+        isDisabled={active}
         w={10}
         h={9}
         textAlign='center'
