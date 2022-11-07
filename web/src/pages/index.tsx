@@ -9,32 +9,32 @@ import usersAvatarExampleImg from '../assets/users-avatar-example.png';
 import { api } from '../lib/axios';
 
 interface HomeProps {
-  poolCount: number;
+  pollCount: number;
   guessCount: number;
   userCount: number;
 }
 
 export default function Home(props: HomeProps) {
-  const [poolTitle, setPoolTitle] = useState('');
+  const [pollTitle, setPollTitle] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  async function createPool(event: FormEvent) {
+  async function createPoll(event: FormEvent) {
     event.preventDefault();
 
     try {
-      const res = await api.post('/pools', {
-        title: poolTitle,
+      const res = await api.post('/polls', {
+        title: pollTitle,
       });
 
       const { code } = res.data;
 
       await navigator.clipboard.writeText(code);
 
-      setPoolTitle('');
+      setPollTitle('');
 
       setSuccessMessage(
-        'Pool successfully created! Code copied into clipboard.'
+        'Poll successfully created! Code copied into clipboard.'
       );
 
       setTimeout(() => {
@@ -42,7 +42,7 @@ export default function Home(props: HomeProps) {
       }, 10000);
     } catch (err) {
       setErrorMessage(
-        `Failed to create a new pool. Detailed error message: ${err}`
+        `Failed to create a new poll. Detailed error message: ${err}`
       );
       setTimeout(() => {
         setErrorMessage('');
@@ -52,6 +52,7 @@ export default function Home(props: HomeProps) {
 
   return (
     <div className='max-w-[1124px] h-screen mx-auto grid grid-cols-2 gap-28 items-center'>
+      <title>NLW Copa</title>
       <main>
         <Image
           src={logoImg}
@@ -59,7 +60,7 @@ export default function Home(props: HomeProps) {
         />
 
         <h1 className='mt-14 text-white text-5xl font-bold leading-tight'>
-          Create your own pool and share with your friends!
+          Create your own poll and share with your friends!
         </h1>
 
         <div className='mt-10 flex items-center gap-2'>
@@ -74,22 +75,22 @@ export default function Home(props: HomeProps) {
         </div>
 
         <form
-          onSubmit={createPool}
+          onSubmit={createPoll}
           className='mt-10 mb-4 flex gap-2'
         >
           <input
             type='text'
             required
-            placeholder="What's your pool name?"
+            placeholder="What's your poll name?"
             className='flex-1 px-6 py-4 rounded bg-gray-800 border border-gray-600 text-sm text-gray-100'
-            onChange={e => setPoolTitle(e.target.value)}
-            value={poolTitle}
+            onChange={e => setPollTitle(e.target.value)}
+            value={pollTitle}
           />
           <button
             type='submit'
             className='bg-yellow-500 px-6 py-4 rounded uppercase text-gray-900 font-bold text-sm hover:bg-yellow-700 active:bg-yellow-700 transition-colors'
           >
-            Create pool
+            Create poll
           </button>
         </form>
 
@@ -114,7 +115,7 @@ export default function Home(props: HomeProps) {
         )}
 
         <p className='mt-4 text-sm text-gray-300 leading-relaxed'>
-          After creating your pool, you will receive an unique code to share 🚀
+          After creating your poll, you will receive an unique code to share 🚀
         </p>
 
         <div className='mt-10 pt-10 border-t border-gray-600 flex items-center justify-between text-gray-100'>
@@ -124,8 +125,8 @@ export default function Home(props: HomeProps) {
               alt=''
             />
             <div className='flex flex-col'>
-              <span className='text-2xl font-bold'>+{props.poolCount}</span>
-              <span>Created pools</span>
+              <span className='text-2xl font-bold'>+{props.pollCount}</span>
+              <span>Created polls</span>
             </div>
           </div>
 
@@ -155,16 +156,16 @@ export default function Home(props: HomeProps) {
 }
 
 export const getStaticProps = async () => {
-  const [poolCountResponse, guessCountResponse, userCountResponse] =
+  const [pollCountResponse, guessCountResponse, userCountResponse] =
     await Promise.all([
-      api.get('/pools/count'),
+      api.get('/polls/count'),
       api.get('/guesses/count'),
       api.get('/users/count'),
     ]);
 
   return {
     props: {
-      poolCount: poolCountResponse.data.count,
+      pollCount: pollCountResponse.data.count,
       guessCount: guessCountResponse.data.count,
       userCount: userCountResponse.data.count,
     },
